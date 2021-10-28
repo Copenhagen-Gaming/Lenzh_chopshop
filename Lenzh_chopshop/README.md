@@ -1,3 +1,5 @@
+rework of the original Lenzh_chopshop V2
+
 # Lenzh_chopshop
 Chop shop for ESX
 
