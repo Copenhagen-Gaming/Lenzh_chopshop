@@ -80,7 +80,7 @@ Citizen.CreateThread(function()
         for k,v in pairs(Config.Zones) do
             local distance = GetDistanceBetweenCoords(playerCoords, v.Pos.x, v.Pos.y, v.Pos.z, true)
             if Config.MarkerType ~= -1 and distance < Config.DrawDistance then
-                DrawMarker(Config.MarkerType, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+                --DrawMarker(Config.MarkerType, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
                 letSleep = false
             end
 
@@ -145,11 +145,30 @@ end)
 AddEventHandler('Lenzh_chopshop:hasEnteredMarker', function(zone)
     if zone == 'Chopshop' and IsDriver() then
         CurrentAction     = 'Chopshop'
-        CurrentActionMsg  = _U('press_to_chop')
+        --CurrentActionMsg  = _U('press_to_chop')
         CurrentActionData = {}
+        local table = {
+            ['key'] = 'E', -- key
+            ['event'] = 'script:myevent',
+            ['title'] = 'Need A Vehicle',
+            ['fa'] = '<i class="fad fa-car"></i>',
+            ['invehicle_title'] = 'Press E To Chop Vehicle',
+        }
+    
+        TriggerEvent('renzu_popui:drawtextuiwithinput',table)
+        TriggerEvent('renzu_popui:closeui')
     elseif zone == 'StanleyShop' then
         CurrentAction     = 'StanleyShop'
-        CurrentActionMsg  = _U('open_shop')
+        local table = {
+            ['key'] = 'E', -- key
+            ['event'] = 'script:myevent',
+            ['title'] = 'Talk To Stanley',
+            ['fa'] = '<i class="fad fa-car"></i>',
+            ['invehicle_title'] = 'Get Out Of Vehicle',
+        }
+    
+        TriggerEvent('renzu_popui:drawtextuiwithinput',table)
+        TriggerEvent('renzu_popui:closeui')
         CurrentActionData = {}
     end
 end)
@@ -220,7 +239,7 @@ function ChopVehicle()
                     if randomReport == Config.CallCopsPercent then
                         --TriggerEvent('Lenzh_chopshop:StartNotifyPD')
                         serverid = GetPlayerServerId(PlayerId())
-                        TriggerServerEvent('Lenzh_chopshop:GetPlayerID', serverid)
+                        --TriggerServerEvent('Lenzh_chopshop:GetPlayerID', serverid)
                         pedIsTryingToChopVehicle = true
                     end
                 end
@@ -260,50 +279,58 @@ function VehiclePartsRemoval()
     SetVehicleEngineOn(vehicle, false, false, true)
     SetVehicleUndriveable(vehicle, false)
     if ChoppingInProgress == true then
-        ESX.ShowNotification("Opening Front Left Door")
+        --ESX.ShowNotification("Opening Front Left Door")
+        TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Drivers Door', progressbar)
         Citizen.Wait(Config.RemovePart)
         SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
     end
-    Citizen.Wait(1000)
+    Citizen.Wait(200)
     if ChoppingInProgress == true then
-        ESX.ShowNotification("Removing Front Left Door")
+        local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+        --ESX.ShowNotification("Removing Front Left Door")
         Citizen.Wait(Config.RemovePart)
         SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
     end
     Citizen.Wait(1000)
     if ChoppingInProgress == true then
-        ESX.ShowNotification("Opening Front Right Door")
+        --ESX.ShowNotification("Opening Front Right Door")
+        TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Passanger Door', progressbar)
         Citizen.Wait(Config.RemovePart)
         SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
     end
-    Citizen.Wait(1000)
+    Citizen.Wait(200)
     if ChoppingInProgress == true then
-        ESX.ShowNotification("Removing Front Right Door")
+        local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+        --ESX.ShowNotification("Removing Front Right Door")
         Citizen.Wait(Config.RemovePart)
         SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
     end
     Citizen.Wait(1000)
     if rearLeftDoor ~= -1 then
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Opening Rear Left Door")
+            --ESX.ShowNotification("Opening Rear Left Door")
+            TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Rear Left Door', progressbar)
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
         end
-        Citizen.Wait(1000)
+        Citizen.Wait(200)
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Removing Rear Left Door")
+            local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+            --ESX.ShowNotification("Removing Rear Left Door")
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Opening Rear Right Door")
+            --ESX.ShowNotification("Opening Rear Right Door")
+            TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Rear Right Door', progressbar)
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
         end
-        Citizen.Wait(1000)
+        Citizen.Wait(200)
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Removing Rear Right Door")
+            local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+            --ESX.ShowNotification("Removing Rear Right Door")
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
         end
@@ -311,13 +338,15 @@ function VehiclePartsRemoval()
     Citizen.Wait(1000)
     if bonnet ~= -1 then
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Opening Hood")
+            --ESX.ShowNotification("Opening Hood")
+            TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Hood', progressbar)
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
         end
-        Citizen.Wait(1000)
+        Citizen.Wait(200)
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Removing Hood")
+            local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+            --ESX.ShowNotification("Removing Hood")
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
         end
@@ -325,21 +354,25 @@ function VehiclePartsRemoval()
     Citizen.Wait(1000)
     if boot ~= -1 then
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Opening Trunk")
+            --ESX.ShowNotification("Opening Trunk")
+            TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Opening Trunk', progressbar)
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
         end
-        Citizen.Wait(1000)
+        Citizen.Wait(200)
         if ChoppingInProgress == true then
-            ESX.ShowNotification("Removing Trunk")
+            local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
+            --ESX.ShowNotification("Removing Trunk")
             Citizen.Wait(Config.RemovePart)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
         end
     end
     Citizen.Wait(1000)
-    ESX.ShowNotification("Let John take care of the car if allowed!")
+    --ESX.ShowNotification("Let John take care of the car if allowed!")
+    TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Finishing Up', progressbar)
     Citizen.Wait(Config.RemovePart)
     if ChoppingInProgress == true then
+        local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
         local vehicle =  GetVehiclePedIsIn( ped, false )
         if vehicle then
             local vehPlate = GetVehicleNumberPlateText(vehicle)
@@ -407,7 +440,7 @@ function OpenShopMenu()
         menu.close()
         menuOpen = false
         CurrentAction     = 'StanleyShop'
-        CurrentActionMsg  = _U('open_shop')
+        --CurrentActionMsg  = _U('open_shop')
         CurrentActionData = {}
     end)
 end
