@@ -9,7 +9,7 @@ Config.MarkerColor = { r = 255, g = 0, b = 0 } -- Change the marker color.
 -- Set the time (in minutes) during the player is markered
 Config.Timer = 2
 
-Config.CooldownMinutes = 10
+Config.CooldownMinutes = 0
 
 Config.CallCops = true -- Set to true if you want cops to be alerted when chopping is in progress
 Config.CallCopsPercent = 1 -- (min1) if 1 then cops will be called every time=100%, 2=50%, 3=33%, 4=25%, 5=20%.
@@ -18,7 +18,7 @@ Config.ShowCopsMisbehave = false --show notification when cops steal too
 
 Config.NPCEnable = true -- Set to false to disable NPC Ped at shop location.
 Config.NPCHash = 68070371 --Hash of the npc ped. Change only if you know what you are doing.
-Config.NPCShop = { x = -208.11, y = -1177.51, z = 22.98, h = 183.2 } -- Location of the shop For the npc.
+Config.NPCShop = { x = -208.11, y = -1177.51, z = 21.98, h = 183.2 } -- Location of the shop For the npc.
 
 Config.RemovePart = 1000
 
@@ -27,7 +27,7 @@ Config.AnyoneCanChop = true -- Will send vehicles to police impound
 
 Config.Zones = {
   Chopshop = {coords = vector3(2349.05, 3134.74, 48.21 + 0.99), name = _U('map_blip'), color = 49, sprite = 225, radius = 100.0, Pos = { x = 2349.05, y = 3134.74, z = 48.21 - 0.95 }, Size = { x = 5.0, y = 5.0, z = 0.5 }, },
-  StanleyShop = {coords = vector3(-208.11, -1177.51, 22.98), name = _U('map_blip_shop'), color = 50, sprite = 120, radius = 25.0, Pos = { x = -208.11, y = -1177.51, z = 22.98}, Size = { x = 3.0, y = 3.0, z = 1.0 }, },
+  StanleyShop = {coords = vector3(-208.11, -1177.51, 20.98), name = _U('map_blip_shop'), color = 50, sprite = 120, radius = 25.0, Pos = { x = -208.11, y = -1177.51, z = 21.98}, Size = { x = 3.0, y = 3.0, z = 1.0 }, },
 
 }
 
