@@ -31,9 +31,6 @@ AddEventHandler("Lenzh_chopshop:ChopRewards", function(rewards)
         local chance = math.random(1, #Config.Items)
         local amount = math.random(1,3)
         local myItem = Config.Items[chance]
-        local data = {displayCode = '0', description = 'Vandalism', isImportant = 0, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'A Car Is Being Chopped'}
-        local dispatchData = {dispatchData = data, caller = 'Alarm', coords = vector3(2344.9, 3136.4, 38.1)}
-        TriggerEvent('wf-alerts:svNotify', dispatchData)
 
         if xPlayer.canCarryItem(myItem, amount) then
             xPlayer.addInventoryItem(myItem, amount)
