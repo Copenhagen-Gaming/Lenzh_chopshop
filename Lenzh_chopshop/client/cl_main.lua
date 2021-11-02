@@ -372,6 +372,9 @@ function VehiclePartsRemoval()
     TriggerEvent('renzu_notify:Notify','success','Chop Shop', 'Finishing Up', progressbar)
     Citizen.Wait(Config.RemovePart)
     if ChoppingInProgress == true then
+        local data = {displayCode = '0', description = 'Vandalism', isImportant = 0, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'A Car Is Being Chopped'}
+        local dispatchData = {dispatchData = data, caller = 'Alarm', coords = vector3(2344.9, 3136.4, 38.1)}
+        TriggerServerEvent('wf-alerts:svNotify', dispatchData)
         local prog = exports.renzu_progressbar:CreateProgressBar(10,'<i class="fas fa-tools"></i>')
         local vehicle =  GetVehiclePedIsIn( ped, false )
         if vehicle then
